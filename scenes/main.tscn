@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmslv2rxy55he"]
+
+[ext_resource type="Script" uid="uid://ct6rd16742g64" path="res://scripts/StateManager.cs" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://cbqptanqoqkit" path="res://scripts/AnimationManager.cs" id="2_0wfyh"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Managers" type="Node" parent="."]
+
+[node name="Timer" type="Timer" parent="Managers"]
+
+[node name="StateManager" type="Node" parent="Managers"]
+script = ExtResource("1_o5qli")
+
+[node name="AnimationManager" type="Node" parent="Managers"]
+script = ExtResource("2_0wfyh")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_right = 256.0
+offset_bottom = 256.0
+text = "IDLE
+"
+horizontal_alignment = 1
+vertical_alignment = 1
