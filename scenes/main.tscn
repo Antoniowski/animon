@@ -1,7 +1,73 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmslv2rxy55he"]
+[gd_scene load_steps=11 format=3 uid="uid://cmslv2rxy55he"]
 
 [ext_resource type="Script" uid="uid://ct6rd16742g64" path="res://scripts/StateManager.cs" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://cbqptanqoqkit" path="res://scripts/AnimationManager.cs" id="2_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://m8cmgag50dr6" path="res://images/sprites/Idle_01-Sheet.png" id="3_sugp2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyhfs"]
+atlas = ExtResource("3_sugp2")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbgi4"]
+atlas = ExtResource("3_sugp2")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tefeu"]
+atlas = ExtResource("3_sugp2")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
+atlas = ExtResource("3_sugp2")
+region = Rect2(600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tipki"]
+atlas = ExtResource("3_sugp2")
+region = Rect2(800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85g3d"]
+atlas = ExtResource("3_sugp2")
+region = Rect2(1000, 0, 200, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_choun"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyhfs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbgi4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tefeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6xl0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tipki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85g3d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tipki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6xl0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tefeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbgi4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyhfs")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 60.0
+}]
 
 [node name="Main" type="Node2D"]
 
@@ -15,10 +81,9 @@ script = ExtResource("1_o5qli")
 [node name="AnimationManager" type="Node" parent="Managers"]
 script = ExtResource("2_0wfyh")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_right = 256.0
-offset_bottom = 256.0
-text = "IDLE
-"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(100, 100)
+sprite_frames = SubResource("SpriteFrames_choun")
+animation = &"idle"
+frame = 10
+frame_progress = 1.0

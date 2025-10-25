@@ -32,6 +32,8 @@ public partial class StateManager : Node
         ResetTimer();
         currentState = States.ANGRY;
         EmitSignal(SignalName.ChangeState, currentState.ToString());
+        timer.WaitTime = new RandomNumberGenerator().RandfRange(5, 7);
+        timer.Start();
     }
 
     public void ResetTimer()
@@ -58,7 +60,7 @@ public partial class StateManager : Node
         // ADD BOOT ANIMATION SIGNAL
 
         // TIMER FIRST SETUP
-        timer.WaitTime = new RandomNumberGenerator().RandfRange(10, 30);
+        timer.WaitTime = new RandomNumberGenerator().RandfRange(5, 7);
         timer.Timeout += OnTimerTimeout;
         timer.Start();
     }
