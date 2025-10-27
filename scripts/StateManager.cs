@@ -8,7 +8,9 @@ public enum States
     TIRED,
     SLEEP,
     ANGRY,
-    PLAYFUL
+    PLAYFUL,
+    DISTRACTED,
+    MEME //TO BE DEFINED
 }
 
 [GodotClassName("StateManager")]
@@ -30,10 +32,8 @@ public partial class StateManager : Node
     {
         timer.Stop();
         ResetTimer();
-        currentState = States.ANGRY;
+        currentState = States.IDLE;
         EmitSignal(SignalName.ChangeState, currentState.ToString());
-        timer.WaitTime = new RandomNumberGenerator().RandfRange(5, 7);
-        timer.Start();
     }
 
     public void ResetTimer()
@@ -47,7 +47,15 @@ public partial class StateManager : Node
     // CALLBACKS
     private void OnAnimationFinished(string fineshedAnimName)
     {
-        
+        switch(fineshedAnimName)
+        {
+            case "boot":
+                // TIMER FIRST SETUP
+                timer.WaitTime = new RandomNumberGenerator().RandfRange(5, 7);
+                timer.Timeout += OnTimerTimeout;
+                timer.Start();
+                break;
+        }
     }
 
     public override void _Ready()
@@ -57,12 +65,8 @@ public partial class StateManager : Node
         animationManager.AnimationFinished += OnAnimationFinished;
 
         currentState = States.BOOT;
+        EmitSignal(SignalName.ChangeState, currentState.ToString());
         // ADD BOOT ANIMATION SIGNAL
-
-        // TIMER FIRST SETUP
-        timer.WaitTime = new RandomNumberGenerator().RandfRange(5, 7);
-        timer.Timeout += OnTimerTimeout;
-        timer.Start();
     }
 
     public override void _Process(double delta)

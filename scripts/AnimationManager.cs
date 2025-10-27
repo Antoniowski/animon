@@ -16,11 +16,27 @@ public partial class AnimationManager : Node
 	[Signal]
 	public delegate void AnimationFinishedEventHandler(string animationName);
 
-	// CALLBACKS
-	private void OnChangeState(string newState)
-	{
-		sprite.Play();
-	}
+    // CALLBACKS
+    private void OnChangeState(string newState)
+    {
+        switch (newState)
+        {
+            case "BOOT":
+                sprite.AnimationFinished += ExternalAnimationFinishedBoot;
+                sprite.Play("boot");
+                break;
+
+            case "IDLE":
+                sprite.SpriteFrames.SetAnimationLoop("idle", true);
+                sprite.Play("idle");
+                break;
+        }
+    }
+    
+    private void ExternalAnimationFinishedBoot()
+    {
+        EmitSignal(SignalName.AnimationFinished, "boot");
+    }
 
 	public override void _Ready()
 	{
@@ -28,9 +44,8 @@ public partial class AnimationManager : Node
 		sprite = GetNode<AnimatedSprite2D>(ANIMATION_HANDLER_PATH);
 		stateManager = GetParent().GetNode<StateManager>(STATE_MANAGER_PATH);
 		stateManager.ChangeState += OnChangeState;
-
-		sprite.Autoplay = "false";
-		sprite.Play();
+		sprite.AnimationFinished += ExternalAnimationFinishedBoot;
+		sprite.Play("boot");
 	}
 
 	public override void _Process(double delta)
